@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  mongo_db:
+    image: mongo:8.0
+    volumes:
+      - ./mongo_db:/data/db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      - sabay_docker
+
+networks:
+  sabay_docker:
+    external: true
