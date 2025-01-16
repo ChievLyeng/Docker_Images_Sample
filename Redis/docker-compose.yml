@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 services:
   redis:
     image: redis:latest
@@ -8,6 +8,12 @@ services:
     volumes:
       - redis_data:/data
     command: ["redis-server", "--appendonly", "yes"]
+    networks:
+      - sabay_docker
 
 volumes:
   redis_data:
+
+networks:
+  sabay_docker:
+    external: true

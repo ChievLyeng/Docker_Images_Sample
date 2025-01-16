@@ -1,0 +1,25 @@
+version: '3.9'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootPassword
+      MYSQL_DATABASE: powerdnsadmin
+      MYSQL_USER: powerdns
+      MYSQL_PASSWORD: powerdnsPassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+    networks:
+      - sabay_docker
+
+volumes:
+  mysql-data:
+
+networks:
+  sabay_docker:
+    external: true
