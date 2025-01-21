@@ -11,8 +11,20 @@ services:
     networks:
       - sabay_docker
 
-# volumes:
-#   portainer_data:
+  pdns-admin:
+    image: powerdnsadmin/powerdns-admin:latest
+    environment:
+      - DATABASE_URL=mysql://powerdnsuser:powerdnsPassword@your_mysql_host/powerdns  # Update with your MySQL host, user, password, and DB name
+      - FLASK_APP=powerdns-admin.py
+      - PDNS_API_URL=http://your_pdns_host:8081/api/v1/servers/localhost  # Update with your PowerDNS host address
+      - PDNS_API_KEY=your_api_key  # Replace with your actual API key
+    ports:
+      - "8081:8080"
+    networks:
+      - sabay_docker
+    depends_on:
+      - portainer
+    restart: always
 
 networks:
   sabay_docker:
