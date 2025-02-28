@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  app:
+    image: nginx
+    environment:
+      NODE_DEV: UAT
+    deploy:
+      update_config:
+        order: start-first
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+      restart_policy:
+        condition: none
+        delay: 5s
+        max_attempts: 5
+        window: 120s
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+    networks:
+      mysabay-39674920:
+        aliases:
+          - mysabay-39674920-stack_015_app
+networks:
+  mysabay-39674920:
+    external: true
