@@ -2,24 +2,31 @@ version: "3.8"
 services:
   pdns:
     image: pschiffe/pdns-mysql
-    container_name: pdns
-    restart: unless-stopped
+    hostname: pdns
+    domainname: samplepowerdns.com
+    container_name: powerdns-api.local
     ports:
-      - "53:53/tcp"  # DNS over TCP
-      - "53:53/udp"  # DNS over UDP
-      - "8081:8081"  # PowerDNS API or web interface
+      - "54:5"
+      - "54:54/udp"
+      - "8081:8081"
     environment:
-      PDNS_gmysql_host: host.docker.internal  # Address to access MySQL
-      PDNS_gmysql_port: 3306  # MySQL port
-      PDNS_gmysql_user: powerdns  # User created in MySQL
-      PDNS_gmysql_password: powerdnsPassword  # Password for the user
-      PDNS_gmysql_dbname: powerdnsadmin  # Database name
-      PDNS_api: "yes"
-      PDNS_api_key: eqjkwleuiy8yhhdhjasjdkakji9uy
-      PDNS_webserver: "yes"
-      PDNS_webserver_address: "0.0.0.0"  # Allows connections from any IP address
-      PDNS_webserver_password: secret2
-      PDNS_webserver-allow-from: 0.0.0.0/0  # Allows all IPs to access the web interface
+      - PDNS_gmysql_host=mysql
+      - PDNS_gmysql_port=3306
+      - PDNS_gmysql_user=chiev.lyeng
+      - PDNS_gmysql_dbname=mydatabase
+      - PDNS_gmysql_password=Lyeng12345
+      - PDNS_primary=yes
+      - PDNS_api=yes
+      - PDNS_api_key=eqjkwleuiy8yhhdhjasjdkakji9uy
+      - PDNSCONF_API_KEY=eqjkwleuiy8yhhdhjasjdkakji9uy
+      - PDNS_webserver=yes
+      - PDNS_webserver-allow-from=127.0.0.1,10.0.0.0/8,172.0.0.0/8,192.0.0.0/24,192.168.65.1/32
+      - PDNS_webserver_address=0.0.0.0
+      - PDNS_webserver_password=secret2
+      - PDNS_version_string=anonymous
+      - PDNS_default_ttl=1500
+      - PDNS_allow_notify_from=0.0.0.0
+      - PDNS_allow_axfr_ips=127.0.0.1
     networks:
       - sabay_docker
 

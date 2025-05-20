@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  worker:
+    image: docker:dind
+    container_name: docker-worker
+    hostname: docker-worker
+    privileged: true
+    environment:
+      - DOCKER_TLS_CERTDIR=
+
+    networks:
+      - sabay_docker
+
+networks:
+  sabay_docker:
+    external: true

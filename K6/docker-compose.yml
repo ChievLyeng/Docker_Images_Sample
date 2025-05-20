@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  k6:
+    image: grafana/k6:latest
+    entrypoint: ["k6"]
+    command: ["run", "https://raw.githubusercontent.com/grafana/k6/master/samples/http_get.js"]
+
